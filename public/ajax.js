@@ -102,3 +102,21 @@ $('#todo-list').on('submit','.edit-item-form',function(e) {
         }
     })
 }) 
+
+
+$('#todo-list').on('submit','.delete-item-form',function(e) {
+    e.preventDefault();
+    var confirmResponse = confirm('Are you sure!')
+    if (confirmResponse) {
+        var actionUrl = $(this).attr('action');
+        $itemToDelete = $(this).closest('.list-group-item')
+    }
+    $.ajax({
+        url: actionUrl,
+        type: 'DELETE',
+        itemToDelete: $itemToDelete,
+        success: function(data) {
+            this.itemToDelete.remove();
+        }
+    })
+}) 
