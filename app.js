@@ -46,14 +46,16 @@ app.post("/todos", function(req, res){
  var formData = req.body.todo;
  Todo.create(formData, function(err, newTodo){
     if(err){
+      alert(err)
       res.render("new");
-    } else {
-      if (req.xhr) {
-        res.json(newTodo)
-      }
-      else {
+    } 
+    else {
+      // if (req.xhr) {
+        // res.json(newTodo)
+      // }
+      // else {
         res.redirect("/todos");
-      }
+      // }
     }
   });
 });
@@ -70,16 +72,16 @@ app.get("/todos/:id/edit", function(req, res){
 });
 
 app.put("/todos/:id", function(req, res){
- Todo.findByIdAndUpdate(req.params.id, req.body.todo, function(err, todo){
+ Todo.findByIdAndUpdate(req.params.id, req.body.todo, {new: true}, function(err, todo){
    if(err){
      console.log(err);
    } else {
-    if (req.xhr) {
+    // if (req.xhr) {
       res.json(todo)
-    }
-    else {
-      res.redirect('/');
-    }
+    // }
+    // else {
+    //   res.redirect('/');
+    // }
    }
  });
 });
